@@ -1,0 +1,47 @@
+spring:
+  datasource:
+    url: ${DB_URL:jdbc:mysql://mysql:3306/autohealx?useSSL=true&serverTimezone=UTC}
+    username: ${DB_USERNAME:autohealx}
+    password: ${DB_PASSWORD:autohealx123}
+    
+    hikari:
+      maximum-pool-size: 50
+      minimum-idle: 10
+      connection-timeout: 30000
+      idle-timeout: 600000
+      max-lifetime: 1800000
+      
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: false
+    
+  data:
+    redis:
+      host: ${REDIS_HOST:redis}
+      port: ${REDIS_PORT:6379}
+      password: ${REDIS_PASSWORD:}
+
+logging:
+  level:
+    com.autohealx: INFO
+    org.springframework: WARN
+    org.hibernate: WARN
+  file:
+    name: /var/log/autohealx/autohealx.log
+
+autohealx:
+  healing:
+    enabled: true
+    health-check-interval: 30000
+  ai:
+    enabled: true
+  chaos:
+    enabled: false
+
+server:
+  port: 8080
+  
+management:
+  server:
+    port: 8081  # Separate port for management endpoints
